@@ -19,7 +19,7 @@ int main(){
         {"nine", "9"}
     };
 
-   ifstream input("../../input/test.txt");
+   ifstream input("../../input/tst-day1.txt");
 
    int sum = 0;
    string line;
@@ -34,11 +34,15 @@ int main(){
         for (map<string, string>::iterator it = numbers.begin(); it != numbers.end(); ++it) {
             size_t pos = line.find(it->first);
             const size_t notFound = string::npos;
+         
+            if (pos != notFound) {
+               line.replace(pos, it->first.length(), it->second);
+                //pos = line.find(it->first, pos + it->second.length());
+               cout<<pos<<endl;
+               cout<<line<<endl;
 
-            while (pos != notFound) {
-                line.replace(pos, it->first.length(), it->second);
-                pos = line.find(it->first, pos + it->second.length());
             }
+            
         }
 
          
