@@ -4,6 +4,8 @@
         "iostream": "cpp",
         "xutility": "cpp",
         "map": "cpp",
-        "utility": "cpp"
-    }
+        "utility": "cpp",
+        "iosfwd": "cpp"
+    },
+    "julia.environmentPath": "c:\\Users\\User\\Desktop\\Codes\\aoc-2023"
 }
