@@ -1,3 +1,5 @@
+# Functions
+
 function readInput(path::String) 
     s = open(path, "r") do file
          read(file, String)
@@ -28,6 +30,9 @@ function replaceStrings(s::SubString{String})
                       "nine" => "9")
 
 end
+
+# ==========================================================================================
+# Main 
 
 input::String = readInput("c:\\Users\\User\\Desktop\\Codes\\aoc-2023\\input\\day01.txt")
 
