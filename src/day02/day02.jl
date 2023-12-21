@@ -14,7 +14,7 @@ findNumber(s::AbstractString) = parse(Int, String([x for x in identity(s) if isd
 
 colorDict = Dict("red" => 12, "green" => 13, "blue" => 14)
 
-input::String = readInput("c:\\Users\\User\\Desktop\\Codes\\aoc-2023\\input\\tst-day2.txt")
+input::String = readInput("c:\\Users\\User\\Desktop\\Codes\\aoc-2023\\input\\day02.txt")
 
 lines = split(rstrip(input), "\n")
 
