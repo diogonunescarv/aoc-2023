@@ -1,3 +1,5 @@
+using OrderedCollections
+
 # Functions 
 
 function readInput(path::String) 
@@ -22,7 +24,7 @@ end
 # ============================================================================================
 # Main
 
-input::String = readInput("c:\\Users\\User\\Desktop\\Codes\\aoc-2023\\input\\tst-day04.txt")
+input::String = readInput("c:\\Users\\User\\Desktop\\Codes\\aoc-2023\\input\\day04.txt")
 
 lines = split(rstrip(input), "\n")
 
@@ -44,15 +46,16 @@ for line in lines
     
 end 
 
-#println(sum1)
+println(sum1)
 
 # Part 2
 
-global sum2 = 0
+global CardValues = OrderedDict{Int, Int}()
+global sum2 = 0 
+global copies = fill(1, length(lines))
+global bArray = fill(1, length(lines))
 
-for line in lines
-    nextCard = 0
-    cardValue = 1
+for line in lines    
     game, gameData = split(line, ":")
     id = findNumber(game)
     winingNumb, myNumb = split(gameData, "|")
@@ -60,17 +63,21 @@ for line in lines
     myNumb = parse.(Int,filter(x -> strip(x) != "",transformArray(myNumb)))
     equal = intersect(winingNumb, myNumb)
     matches = length(equal)
-    
-    if (matches > 0)
-        global sum2 += (nextCard > 0 ? (nextCard - cardValue) : cardValue)
-        if (nextCard == 0)
-            nextCard += matches
-        else 
-            nextCard -= cardValue
-        end 
-    else 
-        global sum2 += (nextCard - cardValue)
-    end
-    println(nextCard) 
+    global CardValues[id] = matches  
 end 
 
+#bArary is the quantity of copies
+for (key, value) in CardValues
+    current_key = key
+    buffer = bArray[key]  
+    while (value > 0)
+        if (current_key < length(lines))
+            global bArray[current_key + 1] += (1*buffer)
+            value -= 1
+        end
+        current_key += 1
+    end
+end
+
+println(bArray)
+println(reduce(+,bArray))
