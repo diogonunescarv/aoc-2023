@@ -13,13 +13,6 @@ findNumber(s::AbstractString) = parse(Int, String([x for x in identity(s) if isd
 
 transformArray(s::AbstractString) = split(s," ")
 
-function part2(winning_numbers::Vector{Vector{Int}}, my_numbers::Vector{Vector{Int}})
-    ncards = ones(Int, length(winning_numbers))
-    for (i, (w, m)) ∈ enumerate(zip(winning_numbers, my_numbers))
-        ncards[i+1:i+length(intersect(w, m))] .+= ncards[i]
-    end
-    return ncards |> sum
-end
 
 # ============================================================================================
 # Main
