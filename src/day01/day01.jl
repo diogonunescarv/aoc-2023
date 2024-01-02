@@ -43,10 +43,8 @@ global sum1 = 0
 # Part 1 
 
 for line in lines
-    s = (String([x for x in identity(line) if isdigit(x)]))
-    if(s != "")
-       global sum1 += parse(Int, finalNumber((s)))
-    end
+    s = (String([x for x in line if isdigit(x)]))
+    global sum1 += parse(Int, finalNumber((s)))
 end
 
 println(sum1)
@@ -57,9 +55,7 @@ global sum2 = 0
 
 for line in lines
     s = (String([x for x in replaceStrings(line) if isdigit(x)]))
-    if(s != "")
-       global sum2 += parse(Int, finalNumber((s)))
-    end
+    global sum2 += parse(Int, finalNumber((s)))
 end
 
 print(sum2)

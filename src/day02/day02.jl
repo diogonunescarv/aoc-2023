@@ -31,8 +31,7 @@ for line in lines
         round = split(turn,",")
         for balls in round
             n, color = split(balls)
-            n = parse(Int, n)
-            if n > get(colorDict, color, 0)
+            if parse(Int, n) > get(colorDict, color, 0)
                 check = false
             end
         end 
@@ -47,10 +46,6 @@ println(sum1)
 # Part 2
 
 colorDict2 = Dict("red" => 0, "green" => 0, "blue" => 0)
-
-# colorDict2["green"] = 20
-
-# println("Updated Dictionary: $colorDict2")
 
 global sum2 = 0
 
@@ -74,6 +69,9 @@ for line in lines
     for (chave, valor) in colorDict2
         colorDict2[chave] = 0
     end
+
 end 
+
+
 
 print(sum2)
