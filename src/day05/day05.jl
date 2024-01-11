@@ -28,11 +28,12 @@ function numericLine(line::AbstractString)
 end
 
 function modSeeds(seeds::Vector{Int}, strt::Int, fnl::Int, pace::Int)
-    println(strt," " , fnl, " ",pace)
+    #println(strt," " , fnl, " ",pace)
     global i = 1
     for s in seeds 
-        if s in fnl:(fnl+pace-1)
+        if s in fnl:(fnl+pace-1) && !(i in positionsChanged) 
             seeds[i] = s - fnl + strt
+            push!(positionsChanged, i)
         end
         global i += 1
     end
@@ -51,23 +52,19 @@ global seeds = parse.(Int, split(strip(split(lines[1], ":")[2]), " "))
 
 data = Dict{Tuple{String,String},Vector{Int}}()
 
+positionsChanged = []
+
 for line in lines[2:end]
     if (line != "\n" && strip(line) != "" && occursin("map", line) === false)
         transf = parse.(Int,filter(x -> strip(x) != "",transformArray(line)))
         #println(transf)
         global seeds = modSeeds(seeds, transf[1], transf[2], transf[3])
-        println(seeds) 
+        #println(seeds)
+    else  
+        deleteat!(positionsChanged, 1:length(positionsChanged)) 
     end 
 end
 
 # Part 1 
-
-# global seeds 
-# global first = true 
-
-# global i = 1
-# for line in lines  
-
-# end 
 
 println("Part 1: ", minimum(seeds))
