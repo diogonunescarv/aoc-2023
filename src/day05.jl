@@ -46,6 +46,44 @@ function generateSeeds(seeds::Vector{Int})
     return newSeeds
 end
 
+function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::String, destination::String, numbers::Vector{UnitRange{Int}})
+    M = data[(source, destination)]
+    new = UnitRange{Int}[]
+    while !isempty(numbers)
+        mapped = false
+        ran = pop!(numbers)
+        for row ∈ axes(M, 1)
+            inter = intersect(ran, M[row, 2]:M[row, 2]+M[row, 3]-1)
+            if !isempty(inter)
+                mapped = true
+                push!(new, inter[1] - M[row,2] + M[row,1] : inter[end] - M[row,2] + M[row,1])
+                left = ran[1]:inter[1]-1
+                isempty(left) || push!(numbers, left)
+                right = inter[end]+1:ran[end]
+                isempty(right) || push!(numbers, right)
+                break
+            end
+        end
+        mapped || push!(new, ran)
+    end
+    return new
+end
+
+function part2(seeds::Vector{Int}, data::Dict{Tuple{String,String},Matrix{Int}})
+    locations = Set{UnitRange{Int}}()
+    chain = ("seed", "soil", "fertilizer", "water", "light", "temperature", "humidity", "location")
+    seedstarts = seeds[1:2:end]
+    seedlengths = seeds[2:2:end]
+    for (ss, sl) ∈ zip(seedstarts, seedlengths)
+        numbers = [ss:ss+sl-1]
+        for (src, dest) ∈ zip(chain[1:end-1], chain[2:end])
+            numbers = perform_mapping(data, src, dest, numbers)
+        end
+        push!(locations, numbers...)
+    end
+    return minimum(x -> x[1], locations)
+end
+
 # ============================================================================================
 # Main
 
@@ -74,4 +112,7 @@ end
 # Part 1 
 
 println("Part 1: ", minimum(seeds))
+
+
+
 println("Part 2: ", seeds2) #not working yet
