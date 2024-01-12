@@ -49,7 +49,7 @@ end
 # ============================================================================================
 # Main
 
-input::String = readInput("c:\\Users\\User\\Desktop\\Codes\\aoc-2023\\input\\day05.txt")
+input::String = readInput("c:\\Users\\User\\Desktop\\Codes\\aoc-2023\\input\\tst-day05.txt")
 
 lines = split(rstrip(input), "\n")
 
@@ -65,7 +65,7 @@ for line in lines[2:end]
     if (line != "\n" && strip(line) != "" && occursin("map", line) === false)
         transf = parse.(Int,filter(x -> strip(x) != "",transformArray(line)))
         global seeds = modSeeds(seeds, transf[1], transf[2], transf[3])
-        #global seeds2 = modSeeds(seeds2, transf[1], transf[2], transf[3])
+        global seeds2 = modSeeds(seeds2, transf[1], transf[2], transf[3])
     else  
         deleteat!(positionsChanged, 1:length(positionsChanged)) 
     end 
@@ -74,4 +74,4 @@ end
 # Part 1 
 
 println("Part 1: ", minimum(seeds))
-println("Part 2: ", minimum(seeds2)) #not working yet
+println("Part 2: ", seeds2) #not working yet
