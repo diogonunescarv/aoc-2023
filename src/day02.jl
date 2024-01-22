@@ -66,8 +66,8 @@ for line in lines
     p1 = reduce(*, values(colorDict2))
     global sum2 += p1
 
-    for (chave, valor) in colorDict2
-        colorDict2[chave] = 0
+    for (key, value) in colorDict2
+        colorDict2[key] = 0
     end
 
 end 
